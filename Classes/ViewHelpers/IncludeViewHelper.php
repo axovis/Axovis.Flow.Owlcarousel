@@ -58,12 +58,12 @@ class IncludeViewHelper extends AbstractViewHelper {
 
         $return = '';
         if($include == 'css' || $include == 'all') {
-            $css = $this->resourceManager->getPublicPackageResourceUri('KSS.Neos.Owlcarousel', 'Styles/owl.carousel.css');
+            $css = $this->resourceManager->getPublicPackageResourceUri('Axovis.Flow.Owlcarousel', 'Styles/owl.carousel.css');
             $return .= '<link rel="stylesheet" type="text/css" href="' . $css . '" />';
             self::$cssIncluded = true;
         }
         if($include == 'js' || $include == 'all') {
-            $js = $this->resourceManager->getPublicPackageResourceUri('KSS.Neos.Owlcarousel', 'JavaScript/owl.carousel' . ($minified ? '.min' : '') . '.js');
+            $js = $this->resourceManager->getPublicPackageResourceUri('Axovis.Flow.Owlcarousel', 'JavaScript/owl.carousel' . ($minified ? '.min' : '') . '.js');
             $return .= '<script type="text/javascript" src="' . $js . '"></script>';
             self::$jsIncluded = true;
         }
