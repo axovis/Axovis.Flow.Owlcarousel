@@ -22,6 +22,7 @@ class CarouselViewHelper extends AbstractViewHelper {
     /**
      * @param array $items array of Resources,Assets or strings (uri)
      * @param string $id of the carousel instance
+     * @param string $class class attribute of carousel element
      * @param bool $autoinclude include scripts and styles if not already done
      * @param int $numItems number of items to display at once
      * @param bool $itemsScaleUp scale up carousel items
@@ -40,9 +41,14 @@ class CarouselViewHelper extends AbstractViewHelper {
      *
      * @return string
      */
-    public function render($items,$id = null,$autoinclude = true,$numItems = 5,$itemsScaleUp = true,$singleItem = true,$showNavigation = true,$pagination = true,$paginationSpeed = 800,$paginationNumbers = true,$rewindNavigation = true,$autoplay = true,$autoplaySpeed = 200,$pauseOnHover = true,$loop = true,$isResponsive = true,$responsiveConfig = array("0" => 1, "479" => 2, "768" => 3, "1199" => 5)) {
+    public function render($items,$id = null,$class = null,$autoinclude = true,$numItems = 5,$itemsScaleUp = true,$singleItem = true,$showNavigation = true,$pagination = true,$paginationSpeed = 800,$paginationNumbers = true,$rewindNavigation = true,$autoplay = true,$autoplaySpeed = 200,$pauseOnHover = true,$loop = true,$isResponsive = true,$responsiveConfig = array("0" => 1, "479" => 2, "768" => 3, "1199" => 5)) {
         if($id == null) {
             $id = 'oc' . md5(microtime());
+        }
+        if($class == null) {
+            $class = 'owl-carousel';
+        } else {
+            $class .= ' owl-carousel';
         }
 
         //build config array
@@ -111,7 +117,7 @@ class CarouselViewHelper extends AbstractViewHelper {
 
         return '
             ' . $includeContent . '
-            <div id="' . $id . '">
+            <div id="' . $id . '" class="' . $class . '">
                 ' . $itemsContent . '
             </div>
             <script type="text/javascript">
