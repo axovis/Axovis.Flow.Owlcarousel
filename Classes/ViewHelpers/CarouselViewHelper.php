@@ -64,7 +64,7 @@ class CarouselViewHelper extends AbstractViewHelper {
         //include dependencies if necessary
         $includeContent = '';
         if($autoinclude) {
-            $viewHelper = $this->objectManager->get('KSS\Flow\Dropzone\ViewHelpers\IncludeViewHelper');
+            $viewHelper = $this->objectManager->get('Axovis\Flow\Owlcarousel\ViewHelpers\IncludeViewHelper');
             $includeContent = $viewHelper->render(true,'remaining');
         }
 
