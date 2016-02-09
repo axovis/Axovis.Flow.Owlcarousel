@@ -1,6 +1,7 @@
 {
     "name": "axovis/flow-owlcarousel",
     "type": "typo3-flow-plugin",
+    "license": "LGPL-3.0+",
     "description": "Content carousel based on the owlcarousel",
     "require": {
         "typo3/flow": "3.*"
