@@ -6,6 +6,15 @@
     "require": {
         "typo3/flow": "3.*"
     },
+    "authors": [
+        {
+            "name": "Sönke Michelsen",
+            "email": "s.michelsen@axovis.com",
+            "homepage": "http://www.axovis.com",
+            "role": "Developer"
+        }
+    ],
+    "keywords": ["flow","images","slider","owlcarousel"],
     "autoload": {
         "psr-4": {
             "Axovis\\Flow\\Owlcarousel\\": "Classes"

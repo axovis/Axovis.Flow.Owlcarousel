@@ -41,7 +41,7 @@ class CarouselViewHelper extends AbstractViewHelper {
      *
      * @return string
      */
-    public function render($items,$id = null,$class = null,$autoinclude = true,$numItems = 5,$itemsScaleUp = true,$singleItem = true,$showNavigation = true,$pagination = true,$paginationSpeed = 800,$paginationNumbers = true,$rewindNavigation = true,$autoplay = true,$autoplaySpeed = 200,$pauseOnHover = true,$loop = true,$isResponsive = false,$responsiveConfig = array("0" => 1, "479" => 2, "768" => 3, "1199" => 5)) {
+    public function render($items,$id = null,$class = null,$autoinclude = true,$numItems = 1,$itemsScaleUp = true,$singleItem = true,$showNavigation = true,$pagination = true,$paginationSpeed = 800,$paginationNumbers = true,$rewindNavigation = true,$autoplay = true,$autoplaySpeed = 200,$pauseOnHover = true,$loop = true,$isResponsive = false,$responsiveConfig = array("0" => 1, "479" => 2, "768" => 3, "1199" => 5)) {
         if($id == null) {
             $id = 'oc' . md5(microtime());
         }
