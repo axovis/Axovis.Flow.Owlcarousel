@@ -6,6 +6,8 @@ use TYPO3\Flow\Resource\ResourceManager;
 use TYPO3\Flow\Resource\Resource;
 use TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\Media\Domain\Model\Asset;
+use TYPO3\Media\Domain\Model\ThumbnailConfiguration;
+use TYPO3\Media\Domain\Service\AssetService;
 
 class CarouselViewHelper extends AbstractViewHelper {
     /**
@@ -18,6 +20,12 @@ class CarouselViewHelper extends AbstractViewHelper {
      * @var ResourceManager
      */
     protected $resourceManager;
+
+    /**
+     * @Flow\Inject
+     * @var AssetService
+     */
+    protected $assetService;
 
     /**
      * @param array $items array of Resources,Assets or strings (uri)
@@ -38,10 +46,14 @@ class CarouselViewHelper extends AbstractViewHelper {
      * @param bool $loop loop animation instead of rewind
      * @param bool $isResponsive enable responsive design
      * @param array<string,int> $responsiveConfig responsive configuration array("{minScreenSize}" => [numElements],...))
+     * @param int $itemMaxWidth image thumbnail max width
+     * @param int $itemMaxHeight image thumbnail max height
+     * @param bool $itemAllowCropping allow cropping thumbnails
+     * @param bool $itemAllowUpscaling allow upscaling thumbnails
      *
      * @return string
      */
-    public function render($items,$id = null,$class = null,$autoinclude = true,$numItems = 1,$itemsScaleUp = true,$singleItem = true,$showNavigation = true,$pagination = true,$paginationSpeed = 800,$paginationNumbers = true,$rewindNavigation = true,$autoplay = true,$autoplaySpeed = 200,$pauseOnHover = true,$loop = true,$isResponsive = false,$responsiveConfig = array("0" => 1, "479" => 2, "768" => 3, "1199" => 5)) {
+    public function render($items,$id = null,$class = null,$autoinclude = true,$numItems = 1,$itemsScaleUp = true,$singleItem = true,$showNavigation = true,$pagination = true,$paginationSpeed = 800,$paginationNumbers = true,$rewindNavigation = true,$autoplay = true,$autoplaySpeed = 200,$pauseOnHover = true,$loop = true,$isResponsive = false,$responsiveConfig = array("0" => 1, "479" => 2, "768" => 3, "1199" => 5),$itemMaxWidth = null,$itemMaxHeight = null,$itemAllowCropping = false,$itemAllowUpscaling = false) {
         if($id == null) {
             $id = 'oc' . md5(microtime());
         }
@@ -79,13 +91,17 @@ class CarouselViewHelper extends AbstractViewHelper {
         foreach($items as $item) {
             $title = '';
             $caption = '';
-            if($item !== null && $item instanceof Resource) {
+            if($item instanceof Resource) {
                 $uri = $this->resourceManager->getPublicPersistentResourceUri($item);
-            } else if($item !== null && $item instanceof Asset) {
-                $uri = $this->resourceManager->getPublicPersistentResourceUri($item->getResource());
+            } else if($item instanceof Asset) {
+                $thumbnailConfiguration = new ThumbnailConfiguration(null, $itemMaxWidth, null, $itemMaxHeight, $itemAllowCropping, $itemAllowUpscaling, false);
+
+                $uri = $this->assetService->getThumbnailUriAndSizeForAsset($item, $thumbnailConfiguration)['src'];
+
+                //$uri = $this->resourceManager->getPublicPersistentResourceUri($item->getResource());
                 $title = $item->getTitle();
                 $caption = $item->getCaption();
-            } else if($item !== null && is_string($item)) {
+            } else if(is_string($item)) {
                 $uri = $item;
             } else {
                 $title = 'Dummy Image';
